@@ -10,4 +10,22 @@
     background-size: 22px;
     background-repeat: no-repeat;
     background-position: center;
+    transition: .2s;
 }
+
+.profile__add-btn:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+@media screen and (max-width: 620px) {
+    .profile__add-btn {
+      margin-top: 36px;
+    }
+  }
+
+@media screen and (max-width: 425px) {
+    .profile__add-btn {
+      width: 100%;
+      max-width: 282px;
+    }
+  }
