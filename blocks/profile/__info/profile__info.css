@@ -4,3 +4,12 @@
     flex-wrap: wrap;
     margin-right: auto;
 }
+
+@media screen and (max-width: 620px) {
+    .profile__info {
+        margin-right: 0;
+        margin-bottom: 36px;
+        text-align: center;
+        flex-direction: column
+    }
+}
