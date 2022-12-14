@@ -4,6 +4,19 @@
     margin: 0 auto;
     list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit,282px);
+    grid-template-columns: repeat(auto-fit, 282px);
     gap: 20px 17px;
+}
+
+@media screen and (max-width: 915px) {
+    .elements {
+        width: 93%;
+        justify-content: center
+    }
+}
+
+/* @media screen and (max-width: 620px) {
+    .elements {
+
+    }
 }
