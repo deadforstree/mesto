@@ -3,7 +3,8 @@
     margin-bottom: 37px;
     padding: 0;
     width: 100%;
-    font-size: 14px;
+    font-weight: 400;
+    font-size: 18px;
     line-height: 46px;
     color: #fff;
     background-color: #000;
@@ -20,7 +21,7 @@
     .popup__save-btn {
         margin-top: 45px;
         margin-bottom: 25px;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 50px;
     }
 }
