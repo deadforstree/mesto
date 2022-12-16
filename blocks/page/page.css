@@ -4,7 +4,7 @@
     background: #000;
     color: #fff;
     text-rendering: optimizeLegibility;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif, serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
