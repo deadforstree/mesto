@@ -33,6 +33,7 @@
                         <h2 class="elements__title">Карачаевск</h2>
                         <button aria-label="лайк карточки" type="button" class="elements__like-btn"></button>
                     </div>
+                    <button aria-label="удаление карточки" type="button" class="elements__delete-btn"></button>
                 </li>
                 <li class="elements__card">
                     <img class="elements__image" src="./images/elbrus.png" alt="Гора Эльбрус">
@@ -88,6 +89,31 @@
             </form>
         </div>
     </div>
+
+    <div data-type="add-popup" class="popup popup_card-add">
+        <div class="popup__container">
+            <button aria-label="закрыть окно" type="button" class="popup__close"></button>
+            <h2 class="popup__title">Новое место</h2>
+            <form class="popup__form" name="fpopup" method="post">
+                <input type="text" id="input-name" name="input-name" class="popup__item popup__item_type_name"
+                    placeholder="Название" required>
+                <input type="text" id="input-about" name="input-about" class="popup__item popup__item_type_about"
+                    placeholder="Ссылка на картинку" required>
+                <button aria-label="создать" type="submit" class="popup__save-btn">Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <template id="card-template">
+        <li class="elements__card">
+            <img src="#" class="elements__image" alt="#">
+            <div class="elements__title-wrapper">
+                <h2 class="elements__title"></h2>
+                <button type="button" class="elements__like-button"></button>
+            </div>
+            <button class="elements__delete-btn"></button>
+        </li>
+    </template>
     <script defer src="scripts/index.js"></script>
 </body>
 
