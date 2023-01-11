@@ -30,13 +30,17 @@ const aboutPopupEdit = document.querySelector('.popup_type_edit');
 const aboutButtonAdd = document.querySelector('.profile__add-btn');
 const aboutPopupAdd = document.querySelector('.popup_type_new-card')
 const aboutButtonClose = document.querySelector('.popup__close');
-const formElement = document.querySelector('.popup__form');
+const formElement = document.querySelector('.popup__container');
 const userName = document.querySelector('.profile__title');
 const userText = document.querySelector('.profile__subtitle');
 const nameInput = document.querySelector('.popup__item_type_name');
 const textInput = document.querySelector('.popup__item_type_about');
-const elementsPhotoContainer = document.querySelector('.elements__photo-grid'); // берем всю галлерею ( там массив)
-
+const popupAddPlace = document.querySelector('.popup_type_new-card');
+const elementsPhotoContainer = document.querySelector('.elements'); // берем всю галлерею ( там массив)
+const placeFormAdd = popupAddPlace.querySelector('.popup__form'); // Добавляем елемент формы
+const placeNameInput = placeFormAdd.querySelector('.popup__item_type_name'); // Добавляем input названия места
+const placeLinkInput = placeFormAdd.querySelector('.popup__item_type_about'); // Добавляем input фотографии места
+const template = document.querySelector('#card-template').content;
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 console.log(popupList);
