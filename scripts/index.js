@@ -27,6 +27,9 @@ popupList.forEach((popup) => {
     if (event.target.classList.contains('popup__close')) {
       closePopup(popup);
     };
+    if (event.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    };
   });
 });
 
@@ -38,14 +41,23 @@ aboutButtonEdit.addEventListener('click', () => {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 function closeEditProfilePopup() {
   closePopup(aboutPopupEdit);
+};
+
+function closePopupByEsc (evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  };
 };
 
 aboutButtonAdd.addEventListener('click', () => {
