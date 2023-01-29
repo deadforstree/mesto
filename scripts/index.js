@@ -20,7 +20,7 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 const buttonClosePopupEdit = aboutPopupEdit.querySelector('.popup__close');
 const buttonClosePopupAdd = aboutPopupAdd.querySelector('.popup__close');
 const buttonCloseImagePopup = imagePopup.querySelector('.popup__close');
-console.log(buttonClosePopupEdit, buttonClosePopupAdd, buttonCloseImagePopup);
+const buttonElement = document.querySelector('.popup__save-btn')
 
 popupList.forEach((popup) => {
   popup.addEventListener('click', (event) => {
@@ -36,6 +36,7 @@ popupList.forEach((popup) => {
 aboutButtonEdit.addEventListener('click', () => {
   nameInput.value = userName.textContent;
   textInput.value = userText.textContent;
+  enableButton(buttonElement, validationConfig);
   openPopup(aboutPopupEdit);
 });
 
@@ -61,6 +62,7 @@ function closePopupByEsc (evt) {
 };
 
 aboutButtonAdd.addEventListener('click', () => {
+  disableButton(buttonElement, validationConfig);
   openPopup(aboutPopupAdd);
 });
 
@@ -108,6 +110,7 @@ const addPlace = (event) => {
   photoCard.name = placeNameInput.value;
   photoCard.link = placeLinkInput.value;
   renderPlace(photoCard);
+  disableButton(buttonElement, validationConfig);
   closePopup(popupAddPlace);
   placeFormAdd.reset();
 };
