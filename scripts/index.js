@@ -21,6 +21,7 @@ const buttonClosePopupEdit = aboutPopupEdit.querySelector('.popup__close');
 const buttonClosePopupAdd = aboutPopupAdd.querySelector('.popup__close');
 const buttonCloseImagePopup = imagePopup.querySelector('.popup__close');
 const buttonElement = document.querySelector('.popup__save-btn')
+const buttonElementAdd = aboutPopupAdd.querySelector('.popup__save-btn')
 
 popupList.forEach((popup) => {
   popup.addEventListener('click', (event) => {
@@ -62,7 +63,7 @@ function closePopupByEsc (evt) {
 };
 
 aboutButtonAdd.addEventListener('click', () => {
-  disableButton(buttonElement, validationConfig);
+  disableButton(buttonElementAdd, validationConfig);
   openPopup(aboutPopupAdd);
 });
 
@@ -110,7 +111,7 @@ const addPlace = (event) => {
   photoCard.name = placeNameInput.value;
   photoCard.link = placeLinkInput.value;
   renderPlace(photoCard);
-  disableButton(buttonElement, validationConfig);
+  disableButton(buttonElementAdd, validationConfig);
   closePopup(popupAddPlace);
   placeFormAdd.reset();
 };
