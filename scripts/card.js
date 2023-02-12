@@ -1,11 +1,15 @@
+import { imageFull, imageTittle, imagePopup } from "./constans.js"
+
+import { } from "./index.js"
+
 export class Card {
-    constructor(data, cardSelector) {
+  constructor(data, cardSelector) {
     this._name = data.name
     this._link = data.link
     this._cardSelector = cardSelector
-}
+  }
 
-_getCardTemplate() {
+  _getCardTemplate() {
     this._view = document
       .querySelector(this._cardSelector)
       .content
@@ -26,29 +30,42 @@ _getCardTemplate() {
   _setEventListeners() {
 
     this._view
-    .querySelector('.elements__like-btn')
-    .addEventListener('click', () => {
-      this._handleLikeCard()
-    })
+      .querySelector('.elements__like-btn')
+      .addEventListener('click', () => {
+        this._handleLikeCard()
+      })
 
     this._view
-    .querySelector('.elements__delete-btn')
-    .addEventListener('click', () => {
-      this._handleRemoveCard()
-    })
+      .querySelector('.elements__delete-btn')
+      .addEventListener('click', () => {
+        this._handleRemoveCard()
+      })
+
+      this._view
+      .querySelector('.elements__image')
+      .addEventListener('click', () => {
+        this._handleOpenPopupImage()
+      })
+
   }
 
   _handleLikeCard() {
     this._view
-    .querySelector('.elements__like-btn').
-    classList.
-    toggle('elements__like-btn_active')
+      .querySelector('.elements__like-btn').
+      classList.
+      toggle('elements__like-btn_active')
   }
 
   _handleRemoveCard() {
     this._view
-    .closest('.elements__card')
-    .remove()
+      .closest('.elements__card')
+      .remove()
+  }
+
+  _handleOpenPopupImage() {
+    imageFull.src = this._link
+    imageTittle.textContent = this._name
+    imagePopup.classList.add('popup_opened')
   }
 
 }
