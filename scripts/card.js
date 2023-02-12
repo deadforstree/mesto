@@ -1,7 +1,5 @@
 import { imageFull, imageTittle, imagePopup } from "./constans.js"
 
-import { } from "./index.js"
-
 export class Card {
   constructor(data, cardSelector) {
     this._name = data.name
