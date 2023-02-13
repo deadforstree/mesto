@@ -1,6 +1,6 @@
-import { Card } from "./card.js";
+import { Card } from "./Card.js";
 
-import { FormValidator } from "./validate.js";
+import { FormValidator } from "./FormValidator.js";
 
 import {
   popupEditPlace,
@@ -47,10 +47,6 @@ aboutButtonEdit.addEventListener('click', () => {
   openPopup(aboutPopupEdit);
 });
 
-function disableButton() {
-  buttonElementAdd.setAttribute('disabled', true);
-};
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
@@ -74,7 +70,6 @@ function closePopupByEsc(evt) {
 
 aboutButtonAdd.addEventListener('click', () => {
   openPopup(aboutPopupAdd);
-  disableButton();
 });
 
 function submitEditProfileForm(evtm) {
@@ -98,18 +93,29 @@ function addCard(evt) {
 
   placeFormAdd.reset()
   closePopup(aboutPopupAdd)
+  cardAddFormValidator.resetValidation()
 }
 
 placeFormAdd.addEventListener('submit', addCard)
 
 const handleAddCard = (item) => {
-  const newCard = new Card(item, '#card-template')
-  newCard.renderCard(elementsPhotoContainer)
+  const newCard = createCard(item)
+  elementsPhotoContainer.prepend(newCard.renderCard())
 }
 
-cardsInitial.reverse().forEach((item) => {
-  handleAddCard(item)
-})
+function createCard(item) {
+  const newCard = new Card(item, '#card-template', handleCardClick)
+return newCard
+}
+
+function handleCardClick(name, link) {
+  imageFull.src = link;
+  imageFull.alt = name;
+  imageTittle.textContent = name;
+  openPopup(imagePopup);
+}
+
+cardsInitial.reverse().forEach(handleAddCard)
 
 const profileEditFormValidator = new FormValidator(validationConfig, placeFormEdit)
 profileEditFormValidator.enableValidation()

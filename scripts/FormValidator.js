@@ -19,8 +19,6 @@ export class FormValidator {
   }
 
   _toggleButtonState() {
-    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector)
-
     const isFormValid = this._form.checkValidity()
     this._buttonElement.classList.toggle(this._config.inactiveButtonClass, !isFormValid)
     this._buttonElement.disabled = !isFormValid
@@ -39,7 +37,7 @@ export class FormValidator {
       e.preventDefault()
     })
     this._inputList = this._form.querySelectorAll(this._config.inputSelector)
-
+    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector)
     this._toggleButtonState()
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {

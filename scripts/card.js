@@ -1,10 +1,9 @@
-import { imageFull, imageTittle, imagePopup } from "./constans.js"
-
 export class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name
     this._link = data.link
     this._cardSelector = cardSelector
+    this._handleCardClick = handleCardClick;
   }
 
   _getCardTemplate() {
@@ -15,55 +14,39 @@ export class Card {
       .cloneNode(true)
   }
 
-  renderCard(container) {
+  renderCard() {
     this._getCardTemplate()
-    this._setEventListeners()
     this._cardImage = this._view.querySelector('.elements__image')
     this._cardImage.src = this._link
     this._cardImage.alt = this._name
+    this._setEventListeners()
     this._view.querySelector('.elements__title').textContent = this._name
-    container.prepend(this._view)
+    return this._view
   }
 
   _setEventListeners() {
 
-    this._view
-      .querySelector('.elements__like-btn')
-      .addEventListener('click', () => {
-        this._handleLikeCard()
-      })
+    this._likeButton = this._view.querySelector('.elements__like-btn')
 
-    this._view
-      .querySelector('.elements__delete-btn')
-      .addEventListener('click', () => {
-        this._handleRemoveCard()
-      })
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeCard()
+    })
 
-      this._view
-      .querySelector('.elements__image')
-      .addEventListener('click', () => {
-        this._handleOpenPopupImage()
-      })
+    this._deleteButton = this._view.querySelector('.elements__delete-btn')
 
+    this._deleteButton.addEventListener('click', () => {
+      this._handleRemoveCard()
+    })
+  
+    this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link))
+    
   }
 
   _handleLikeCard() {
-    this._view
-      .querySelector('.elements__like-btn').
-      classList.
-      toggle('elements__like-btn_active')
+    this._likeButton.classList.toggle('elements__like-btn_active')
   }
 
   _handleRemoveCard() {
-    this._view
-      .closest('.elements__card')
-      .remove()
+    this._deleteButton.closest('.elements__card').remove()
   }
-
-  _handleOpenPopupImage() {
-    imageFull.src = this._link
-    imageTittle.textContent = this._name
-    imagePopup.classList.add('popup_opened')
-  }
-
 }
