@@ -93,7 +93,7 @@ function addCard(evt) {
 
   placeFormAdd.reset()
   closePopup(aboutPopupAdd)
-  cardAddFormValidator.resetValidation()
+  formValidators['fpopup'].resetValidation()
 }
 
 placeFormAdd.addEventListener('submit', addCard)
@@ -117,8 +117,20 @@ function handleCardClick(name, link) {
 
 cardsInitial.reverse().forEach(handleAddCard)
 
-const profileEditFormValidator = new FormValidator(validationConfig, placeFormEdit)
-profileEditFormValidator.enableValidation()
+const formValidators = {}
 
-const cardAddFormValidator = new FormValidator(validationConfig, placeFormAdd)
-cardAddFormValidator.enableValidation()
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
