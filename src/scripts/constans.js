@@ -32,7 +32,7 @@ const validationConfig = {
     inactiveButtonClass: '.popup__save-btn_disabled',
     inputErrorClass: '.popup__item_type_error',
     errorClass: '.popup__error_visible'
-  };
+};
 
 const aboutButtonEdit = document.querySelector('.profile__edit-btn');
 const aboutPopupEdit = document.querySelector('.popup_type_edit');
@@ -89,5 +89,5 @@ export {
     buttonCloseImagePopup,
     buttonElement,
     buttonElementAdd,
-    validationConfig
+    validationConfig,
 };
