@@ -47,6 +47,6 @@ export class Card {
   }
 
   _handleRemoveCard() {
-    this._deleteButton.closest('.elements__card').remove()
+    this._view.remove()
   }
 }

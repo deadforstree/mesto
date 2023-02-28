@@ -2,7 +2,7 @@
 
 import '../pages/index.css'; // добавьте импорт главного файла стилей
 
-import { FormValidator } from "./FormValidator.js";
+import { FormValidator } from "../components/FormValidator.js";
 
 import {
   cardsInitial,
@@ -11,17 +11,17 @@ import {
   nameInput,
   textInput,
   validationConfig
-} from "./constans.js";
+} from "../utils/constans.js";
 
-import PopupWithImage from './PopupWithImage.js'
+import PopupWithImage from '../components/PopupWithImage.js'
 
 const popupFigure = new PopupWithImage('.popup_type_image-place')
 
 popupFigure.setEventListeners()
 
-import { Card } from "./Card.js";
+import { Card } from "../components/Card.js";
 
-import Section from './Section.js'
+import Section from '../components/Section.js'
 
 const cardList = new Section({
   items: cardsInitial,
@@ -39,13 +39,13 @@ const cardList = new Section({
 
 cardList.render()
 
-import UserInfo from './UserInfo.js'
+import UserInfo from '../components/UserInfo.js'
 
 const userInfo = new UserInfo({ name: '.profile__title', info: '.profile__subtitle' })
 
 userInfo.getUserInfo()
 
-import PopupWithForm from './PopupWithForm.js'
+import PopupWithForm from '../components/PopupWithForm.js'
 
 const popupFormCardAdd = new PopupWithForm('.popup_type_new-card', newValues => {
   const card = new Card({
