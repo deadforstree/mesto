@@ -31,7 +31,7 @@ const validationConfig = {
     submitButtonSelector: '.popup__save-btn',
     inactiveButtonClass: '.popup__save-btn_disabled',
     inputErrorClass: '.popup__item_type_error',
-    errorClass: '.popup__error_visible'
+    errorClass: '.popup__error_visible',
 };
 
 const aboutButtonEdit = document.querySelector('.profile__edit-btn');
@@ -39,8 +39,8 @@ const aboutPopupEdit = document.querySelector('.popup_type_edit');
 const aboutButtonAdd = document.querySelector('.profile__add-btn');
 const aboutPopupAdd = document.querySelector('.popup_type_new-card');
 const popupEditProfile = document.querySelector('.popup__container');
-const userName = document.querySelector('.profile__title');
-const userText = document.querySelector('.profile__subtitle');
+const profileNameInput = document.querySelector('.profile__title');
+const profileAboutInput = document.querySelector('.profile__subtitle');
 const nameInput = document.querySelector('.popup__item_type_name');
 const textInput = document.querySelector('.popup__item_type_about');
 const popupAddPlace = document.querySelector('.popup_type_new-card');
@@ -70,8 +70,8 @@ export {
     aboutButtonAdd,
     aboutPopupAdd,
     popupEditProfile,
-    userName,
-    userText,
+    profileNameInput,
+    profileAboutInput,
     nameInput,
     textInput,
     popupAddPlace,

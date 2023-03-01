@@ -33,8 +33,8 @@ const cardList = new Section({
       }
     }, '#card-template')
     const cardElement = card.renderCard()
-    cardList.addItem(cardElement)
-  }
+  return cardElement
+}
 }, '.elements')
 
 cardList.render()
@@ -66,7 +66,7 @@ aboutButtonAdd.addEventListener('click', _ => {
 })
 
 const popupFormProfilEdit = new PopupWithForm('.popup_type_edit', _ => {
-  userInfo.setUserInfo()
+  userInfo.setUserInfo(nameInput, textInput)
 })
 
 popupFormProfilEdit.setEventListeners()
