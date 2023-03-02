@@ -23,17 +23,21 @@ import { Card } from "../components/Card.js";
 
 import Section from '../components/Section.js'
 
+function createCard(item) {
+  const card = new Card({
+    data: item,
+    handleCardClick: _ => {
+      popupFigure.open(item)
+    }
+  }, '#card-template')
+  const cardElement = card.renderCard()
+  return cardElement
+}
+
 const cardList = new Section({
   items: cardsInitial,
-  render: item => {
-    const card = new Card({
-      data: item,
-      handleCardClick: _ => {
-        popupFigure.open(item)
-      }
-    }, '#card-template')
-    const cardElement = card.renderCard()
-    cardList.addItem(cardElement)
+  render: (item) => {
+    cardList.addItem(createCard(item))
   }
 }, '.elements')
 
@@ -48,14 +52,7 @@ userInfo.getUserInfo()
 import PopupWithForm from '../components/PopupWithForm.js'
 
 const popupFormCardAdd = new PopupWithForm('.popup_type_new-card', newValues => {
-  const card = new Card({
-    data: newValues,
-    handleCardClick: _ => {
-      popupFigure.open(newValues)
-    }
-  }, '#card-template')
-  const cardElement = card.renderCard()
-  cardList.addItem(cardElement)
+  cardList.addItem(createCard(newValues))
 })
 
 popupFormCardAdd.setEventListeners()
@@ -75,7 +72,6 @@ aboutButtonEdit.addEventListener('click', _ => {
   const userData = userInfo.getUserInfo()
   nameInput.value = userData.name
   textInput.value = userData.info
-
   popupFormProfilEdit.open()
 })
 
