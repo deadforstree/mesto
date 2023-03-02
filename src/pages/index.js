@@ -33,8 +33,8 @@ const cardList = new Section({
       }
     }, '#card-template')
     const cardElement = card.renderCard()
-  return cardElement
-}
+    cardList.addItem(cardElement)
+  }
 }, '.elements')
 
 cardList.render()
