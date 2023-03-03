@@ -2,7 +2,7 @@
 
 import '../pages/index.css'; // добавьте импорт главного файла стилей
 
-import { FormValidator } from "../components/FormValidator.js";
+import { FormValidator, FormValidators } from "../components/FormValidator.js";
 
 import {
   cardsInitial,
@@ -59,11 +59,11 @@ popupFormCardAdd.setEventListeners()
 
 aboutButtonAdd.addEventListener('click', _ => {
   popupFormCardAdd.open()
-  FormValidator['fpopup'].resetValidation()
+  FormValidators['fpopup'].resetValidation()
 })
 
-const popupFormProfilEdit = new PopupWithForm('.popup_type_edit', _ => {
-  userInfo.setUserInfo(nameInput, textInput)
+const popupFormProfilEdit = new PopupWithForm('.popup_type_edit', newValues => {
+  userInfo.setUserInfo(newValues)
 })
 
 popupFormProfilEdit.setEventListeners()
@@ -80,12 +80,12 @@ aboutButtonEdit.addEventListener('click', _ => {
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
   formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement)
+    const validator = new FormValidators(config, formElement)
     // получаем данные из атрибута `name` у формы
     const formName = formElement.getAttribute('name')
 
     // вот тут в объект записываем под именем формы
-    FormValidator[formName] = validator;
+    FormValidators[formName] = validator;
     validator.enableValidation();
   });
 };
