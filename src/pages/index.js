@@ -7,6 +7,9 @@ import { FormValidator, FormValidators } from "../components/FormValidator.js";
 import {
   cardsInitial,
   aboutButtonEdit,
+  profileAvatar,
+  profileNameInput,
+  profileAboutInput,
   aboutButtonAdd,
   nameInput,
   textInput,
@@ -21,27 +24,39 @@ popupFigure.setEventListeners()
 
 import { Card } from "../components/Card.js";
 
-import Section from '../components/Section.js'
+import Section from '../components/Section.js';
 
-function createCard(item) {
+import Api from '../components/Api';
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-61',
+  headers: {
+    authorization: 'e35b94b1-baff-4190-b21b-fc912cacb94b',
+    'Content-Type': 'application/json'
+  }
+})
+
+//Функция создания карточки
+const createCard = (item) => {
   const card = new Card({
     data: item,
     handleCardClick: _ => {
       popupFigure.open(item)
     }
   }, '#card-template')
-  const cardElement = card.renderCard()
-  return cardElement
+  return card
 }
 
 const cardList = new Section({
-  items: cardsInitial,
-  render: (item) => {
-    cardList.addItem(createCard(item))
+  // items: initialCards,
+  renderer: item => {
+    const card = createCard(item)
+    const cardElement = card.renderCard()
+    cardList.addItem(cardElement)
   }
 }, '.elements')
 
-cardList.render()
+// cardList.render()
 
 import UserInfo from '../components/UserInfo.js'
 
@@ -52,7 +67,15 @@ userInfo.getUserInfo()
 import PopupWithForm from '../components/PopupWithForm.js'
 
 const popupFormCardAdd = new PopupWithForm('.popup_type_new-card', newValues => {
-  cardList.addItem(createCard(newValues))
+  api.addUserCard(newValues)
+    .then((item) => {
+      const card = createCard(item)
+      const cardElement = card.renderCard()
+      cardList.addItem(cardElement)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 popupFormCardAdd.setEventListeners()
@@ -62,8 +85,17 @@ aboutButtonAdd.addEventListener('click', _ => {
   FormValidators['fpopup'].resetValidation()
 })
 
+//const popupFormProfilEdit = new PopupWithForm('.popup_type_edit', _ => {
+//  const userData = userInfo.getUserInfo()
+//})
+
 const popupFormProfilEdit = new PopupWithForm('.popup_type_edit', newValues => {
-  userInfo.setUserInfo(newValues)
+  console.log(newValues)
+  api.setUserInfoApi(newValues)
+    .then((data) => {
+      console.log(data)
+      userInfo.setUserInfo(data)
+    })
 })
 
 popupFormProfilEdit.setEventListeners()
@@ -75,6 +107,23 @@ aboutButtonEdit.addEventListener('click', _ => {
   popupFormProfilEdit.open()
 })
 
+const cards = api.getInitialCards()
+cards
+  .then((data) => {
+    cardList.render(data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+const apiInfo = api.getUserInfo()
+apiInfo
+  .then((data) => {
+    userInfo.setUserInfo(data)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
 // Включение валидации
 const enableValidation = (config) => {

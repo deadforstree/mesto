@@ -39,6 +39,7 @@ const aboutPopupEdit = document.querySelector('.popup_type_edit');
 const aboutButtonAdd = document.querySelector('.profile__add-btn');
 const aboutPopupAdd = document.querySelector('.popup_type_new-card');
 const popupEditProfile = document.querySelector('.popup__container');
+const profileAvatar = document.querySelector('.profile__avatar')
 const profileNameInput = document.querySelector('.profile__title');
 const profileAboutInput = document.querySelector('.profile__subtitle');
 const nameInput = document.querySelector('.popup__item_type_name');
@@ -70,6 +71,7 @@ export {
     aboutButtonAdd,
     aboutPopupAdd,
     popupEditProfile,
+    profileAvatar,
     profileNameInput,
     profileAboutInput,
     nameInput,
