@@ -15,7 +15,7 @@
   <main class="main">
     <section class="profile">
       <div class="profile__avatar-wrapper">
-        <img class="profile__avatar" src="<%=require('./images/profile__avatar.png')%>" alt="Изображение профиля">
+        <img class="profile__avatar" src="#" alt="Изображение профиля">
         <button type="button" class="profile__avatar-edit-button"></button>
       </div>
       <div class="profile__info">
@@ -40,12 +40,12 @@
       <button class="popup__close" aria-label="Закрыть окно" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="fpopup" method="post" novalidate>
-        <input type="text" id="name" name="name" class="popup__item popup__item_type_name"
+        <input type="text" id="userName-input" name="userName" class="popup__item popup__item_type_name"
           placeholder="Введите ваше имя" required minlength="2" maxlength="40">
-        <span id="name-error" class="popup__error popup__error_visible"></span>
-        <input type="text" id="about" name="info" class="popup__item popup__item_type_about"
+        <span class="popup__input-error userName-input-error"></span>
+        <input type="text" id="userAbout-input" name="userAbout" class="popup__item popup__item_type_about"
           placeholder="Добавьте описание" required minlength="2" maxlength="200">
-        <span id="about-error" class="popup__error popup__error_visible"></span>
+        <span class="popup__input-error userAbout-input-error"></span>
         <button aria-label="сохранить" name="save-btn" type="submit" class="popup__save-btn">Сохранить</button>
       </form>
     </div>
@@ -66,8 +66,9 @@
       <button aria-label="закрыть окно" type="button" class="popup__close"></button>
       <h2 class="popup__title">Обновить аватар</h2>
       <form class="popup__form" name="popupForm" novalidate>
-        <input name="userAbout" type="url" class="popup__item popup__item_type_about" id="userAbout-input" placeholder="Ссылка на картинку" required>
-        <span class="popup__error userAbout-input-error"></span>
+        <input name="userAvatar" type="url" class="popup__item popup__item_type_about" id="userAvatar-input"
+          placeholder="Ссылка на картинку" required>
+        <span class="popup__input-error userAvatar-input-error"></span>
         <button type="submit" class="popup__save-btn">Сохранить</button>
       </form>
     </div>
@@ -78,12 +79,12 @@
       <button aria-label="закрыть окно" type="button" class="popup__close"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="fpopup" method="post" novalidate>
-        <input type="text" id="nameplace" name="name" class="popup__item popup__item_type_name" placeholder="Название"
-          required minlength="2" maxlength="30">
-        <span id="nameplace-error" class="popup__error popup__error_visible"></span>
-        <input type="url" id="link" name="link" class="popup__item popup__item_type_about"
+        <input type="text" id="placeName-input" name="name" class="popup__item popup__item_type_name"
+          placeholder="Название" required minlength="2" maxlength="30">
+        <span class="popup__input-error placeName-input-error"></span>
+        <input type="url" id="placeUrl-input" name="link" class="popup__item popup__item_type_about"
           placeholder="Ссылка на картинку" required>
-        <span id="link-error" class="popup__error popup__error_visible"></span>
+        <span class="popup__input-error placeUrl-input-error"></span>
         <button aria-label="создать" name="save-btn" type="submit" class="popup__save-btn">Создать</button>
       </form>
     </div>

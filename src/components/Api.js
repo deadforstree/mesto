@@ -4,17 +4,19 @@ export default class Api {
         this._headers = options.headers
     }
 
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`)
+    }
+
     getUserInfo() {
         return fetch(this._url + '/users/me', {
             method: 'GET',
             headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка: ${res.status}`)
-            })
+            .then(this._checkResponse)
     }
 
     getInitialCards() {
@@ -22,12 +24,7 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject((`Ошибка: ${res.status}`))
-            })
+            .then(this._checkResponse)
     }
 
     setUserInfoApi(userData) {
@@ -35,16 +32,11 @@ export default class Api {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: userData.name,
-                about: userData.info
+                name: userData.userName,
+                about: userData.userAbout
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка: ${res.status}`)
-            })
+            .then(this._checkResponse)
     }
 
     addUserCard(data) {
@@ -56,11 +48,45 @@ export default class Api {
                 link: data.link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject((`Ошибка: ${res.status}`))
+            .then(this._checkResponse)
+    }
+
+    like(id) {
+        return fetch(this._url + `/cards/likes/${id}`, {
+            method: 'PUT',
+            headers: this._headers
+        })
+            .then(this._checkResponse)
+    }
+
+    dislike(id) {
+        return fetch(this._url + `/cards/likes/${id}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then(this._checkResponse)
+    }
+
+    delete(id) {
+        return fetch(this._url + `/cards/${id}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then(this._checkResponse)
+    }
+
+    handleUserAvatar(data) {
+        return fetch(this._url + `/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: data.userAvatar,
             })
+        })
+            .then(this._checkResponse)
+    }
+
+    getAllNeededData() {
+        return Promise.all([this.getInitialCards(), this.getUserInfo()])
     }
 }

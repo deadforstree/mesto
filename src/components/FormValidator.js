@@ -1,43 +1,55 @@
-export class FormValidators {
-  constructor(config, form) {
-    this._config = config
-    this._form = form
+export default class FormValidator {
+  constructor(data, formElement) {
+    this._inputSelector = data.inputSelector
+    this._submitButtonSelector = data.submitButtonSelector
+    this._inactiveButtonClass = data.inactiveButtonClass
+    this._inputErrorClass = data.inputErrorClass
+    this._errorClass = data.errorClass
+
+    this._formElement = formElement
+
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector))
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector)
+
   }
 
-  _hideInputError(inputElement) {
-    const errorElement = this._form.querySelector(`#${inputElement.id}-error`)
-    inputElement.classList.remove(this._config.inputErrorClass)
-    errorElement.classList.remove(this._config.errorClass)
+  _showError(inputElement, errorMessage) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`)
+    inputElement.classList.add(this._inputErrorClass)
+    errorElement.classList.add(this._errorClass)
+    errorElement.textContent = errorMessage
+  }
+
+  _hideError(inputElement) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`)
+    inputElement.classList.remove(this._inputErrorClass)
+    errorElement.classList.remove(this._errorClass)
     errorElement.textContent = ''
   }
 
-  _showInputError(inputElement) {
-    const errorElement = this._form.querySelector(`#${inputElement.id}-error`)
-    inputElement.classList.add(this._config.inputErrorClass)
-    errorElement.classList.add(this._config.errorClass)
-    errorElement.textContent = inputElement.validationMessage
+  _checkInputValidity(inputElement) {
+    if (!inputElement.validity.valid) {
+      this._showError(inputElement, inputElement.validationMessage)
+    } else
+      this._hideError(inputElement)
+  }
+
+  _hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {
+      return !inputElement.validity.valid
+    })
   }
 
   _toggleButtonState() {
-    const isFormValid = this._form.checkValidity()
-    this._buttonElement.classList.toggle(this._config.inactiveButtonClass, !isFormValid)
-    this._buttonElement.disabled = !isFormValid
-  }
-
-  _checkInputValidity(inputElement) {
-    if (inputElement.validity.valid) {
-      this._hideInputError(inputElement)
+    if (this._hasInvalidInput(this._inputList)) {
+      this.disableSubmitButton()
     } else {
-      this._showInputError(inputElement)
+      this._buttonElement.classList.remove(this._inactiveButtonClass)
+      this._buttonElement.disabled = false
     }
   }
 
-  _setEventListeners() {
-    this._form.addEventListener('submit', (e) => {
-      e.preventDefault()
-    })
-    this._inputList = this._form.querySelectorAll(this._config.inputSelector)
-    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector)
+  _setIventListeners() {
     this._toggleButtonState()
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -47,14 +59,23 @@ export class FormValidators {
     })
   }
 
-  resetValidation() {
-    this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement)
+  removeErrors() {
+    this._inputList.forEach(inputElement => {
+      this._hideError(inputElement)
     })
-    this._toggleButtonState()
+  }
+
+  disableSubmitButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass)
+    this._buttonElement.disabled = true;
+  }
+
+  enableSubmitButton() { // исправляет баг, когда при открытии попапа форма валидна, а кнопка неактивна
+    this._buttonElement.classList.remove(this._inactiveButtonClass)
+    this._buttonElement.disabled = false
   }
 
   enableValidation() {
-    this._setEventListeners()
+    this._setIventListeners()
   }
 }
