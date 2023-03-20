@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, handleCardClick, handleLikeClick, handleConfirmDelete }, cardSelector, api, userId) {
+  constructor({ data, handleCardClick, handleLikeClick, handleConfirmDelete }, cardSelector, userId) {
     this._name = data.name
     this._link = data.link
     this._likes = data.likes
@@ -10,7 +10,6 @@ export default class Card {
 
     this._cardSelector = cardSelector
 
-    this._api = api
     this._id = data._id
     this._ownerId = data.owner._id
     this._userId = userId
@@ -69,28 +68,20 @@ export default class Card {
     })
   }
 
-  handleLikeCard() {
-    const likeButton = this._view.querySelector('.elements__like-btn')
-    const likeCount = this._view.querySelector('.elements__like-count')
+  isLiked() {
+    const isLikeUser = this._likes.find(user => user._id === this._userId)
+    return isLikeUser
+  }
 
-    if (!(likeButton.classList.contains('elements__like-btn_active'))) {
-      this._api.like(this._id)
-        .then((data) => {
-          likeButton.classList.add('elements__like-btn_active')
-          likeCount.textContent = data.likes.length
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+  setLikes(countLikes) {
+    this._likes = countLikes
+    this._elementLikes.textContent = this._likes.length
+
+    this._cardLikedActive = 'elements__like-btn_active'
+    if (this.isLiked()) {
+      this._likeButton.classList.add(this._cardLikedActive)
     } else {
-      this._api.dislike(this._id)
-        .then((data) => {
-          likeButton.classList.remove('elements__like-btn_active')
-          likeCount.textContent = data.likes.length
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      this._likeButton.classList.remove(this._cardLikedActive)
     }
   }
 

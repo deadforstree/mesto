@@ -61,7 +61,22 @@ const createCard = (data) => {
 
         handleCardClick: _ => popupFigure.open(data),
 
-        handleLikeClick: _ => card.handleLikeCard(),
+        handleLikeClick: _ => {
+          if (card.isLiked()) {
+            api.dislike(data._id)
+              .then((data) => {
+                card.setLikes(data.likes)
+              })
+              .catch(err => console.log(err))
+          }
+          else {
+            api.like(data._id)
+              .then((data) => {
+                card.setLikes(data.likes)
+              })
+              .catch(err => console.log(err))
+          }
+        },
 
         handleConfirmDelete: _ => {
           confirmDeletePopup.setSubmitAction(_ => {
@@ -78,7 +93,6 @@ const createCard = (data) => {
         }
       },
       cardSelector,
-      api,
       userId
     )
   return card
@@ -124,7 +138,7 @@ const popupFormCardAdd = new PopupWithForm(popupCardAddSelector, newValues => {
       popupFormCardAdd.close()
     })
     .catch((err) => console.log(err))
-    .finally(_ => popupFormCardAdd.renderLoading(true))
+    .finally(_ => popupFormCardAdd.renderLoading(false))
 })
 popupFormCardAdd.setEventListeners();
 
@@ -142,7 +156,6 @@ popupFormProfilEdit.setEventListeners()
 
 modalAddFormButtonOpen.addEventListener('click', _ => {
   cardAddFormValidator.removeErrors()
-  popupFormCardAdd.renderLoading(false)
   popupFormCardAdd.open()
 })
 
